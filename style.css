@@ -1,0 +1,14 @@
+#cookieMain {
+  max-width: max-content;
+  display: inline-block;
+  position: relative;
+}
+
+#shopItems {
+  display: flex;
+  position: absolute;
+  text-wrap: wrap;
+  flex-direction: column;
+  right: 5vw;
+  top: 0px;
+}
