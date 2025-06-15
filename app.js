@@ -1,6 +1,6 @@
 const cookImg = document.getElementById("cookieImage");
-let cookieCount = localStorage.getItem("cookieCount") ?? 0;
-let cps = localStorage.getItem("cps") ?? 1;
+let cookieCount = Number(localStorage.getItem("cookieCount")) ?? 0;
+let cps = Number(localStorage.getItem("cps")) ?? 1; // moved cps and cookieCount here instead of a seperate area
 
 [
   // const stringedCookie = JSON.stringify(cookieCount);
@@ -14,11 +14,6 @@ let cps = localStorage.getItem("cps") ?? 1;
   // console.log(cookieLocal)
 ]; // For when I make it an object
 
-let savedCookieCount = localStorage.getItem("cookieCount");
-let savedCps = localStorage.getItem("cps");
-if (savedCookieCount) cookieCount = Number(savedCookieCount);
-if (savedCps) cps = Number(savedCps);
-
 function saveProgress() {
   // I had an issue here where I capitilised CookieCount and it would save to local storage as a seperate string
   localStorage.setItem("cookieCount", cookieCount);
@@ -28,7 +23,7 @@ function saveProgress() {
 window.addEventListener("beforeunload", saveProgress);
 setInterval(() => {
   saveProgress();
-}, 60000);
+}, 60000); // added every minute save because safari doesnt use beforeunload
 
 async function fetchData() {
   const response = await fetch(
@@ -64,16 +59,20 @@ async function displayShop() {
     const shopPrice = document.createElement("p");
     const cpsIncrease = document.createElement("p");
     const buyButton = document.createElement("button");
+    const shopItemBox = document.createElement("div");
+
+    shopItemBox.classList.add("shop-item-boxes");
 
     shopName.innerText = item.name;
-    shopPrice.innerText = item.cost;
-    cpsIncrease.innerText = item.increase;
+    shopPrice.innerText = `Cost: ${item.cost} Cookies`;
+    cpsIncrease.innerText = `Increase: ${item.increase} CPS`;
     buyButton.innerText = "Buy";
 
-    div.appendChild(shopName);
-    div.appendChild(shopPrice);
-    div.appendChild(cpsIncrease);
-    div.appendChild(buyButton);
+    shopItemBox.appendChild(shopName);
+    shopItemBox.appendChild(shopPrice);
+    shopItemBox.appendChild(cpsIncrease);
+    shopItemBox.appendChild(buyButton);
+    div.appendChild(shopItemBox);
 
     buyButton.addEventListener("click", () => {
       if (cookieCount < item.cost) alert("Not enough cookies");
@@ -100,4 +99,8 @@ setInterval(() => {
 cookImg.addEventListener("click", () => {
   cookieCount++;
   cookiePlus();
+  function playAudio(src) {
+    new Audio(src).play();
+  }
+  playAudio(`./Resources/audiomass-output.mp3`);
 });

@@ -1,14 +1,29 @@
-#cookieMain {
-  max-width: max-content;
-  display: inline-block;
-  position: relative;
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background: rgb(124, 124, 124);
 }
 
-#shopItems {
+.cookie-main {
+  width: fit-content;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: 20vw;
+}
+.shop-items {
+  display: grid;
   position: absolute;
   text-wrap: wrap;
-  flex-direction: column;
+  grid-template-columns: 200px 200px;
   right: 5vw;
   top: 0px;
+  border-color: black;
+}
+
+.shop-items button {
+  border-radius: 5%;
+  width: 6vw;
+  background: transparent;
 }
